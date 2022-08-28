@@ -1,0 +1,11 @@
+{
+  "name": "common_ai_backend",
+  "version": "1.0.0",
+  "description": "provides a common backend(to serve apis) for my projects",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aryan Tajne",
+  "license": "ISC"
+}
