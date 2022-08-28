@@ -26,6 +26,7 @@ function clearold(){
 
     for(var i = 0;i < huggingface_instance_list.length;i++){
         if(huggingface_instance_list[i].date == null || (new Date() - huggingface_instance_list[i].date) > 300000){
+            console.log("ended a chat with " + huggingface_instance_list.username);
             huggingface_instance_list[i].flag_for_delete();
             huggingface_instance_list.splice(i, 1);
         }
@@ -33,19 +34,20 @@ function clearold(){
 
 }
 
-app.get('/huggingface', (req, res) => {
+app.post('/huggingface', (req, res) => {
 
     clearold();
     if(search(req.body.username) == -1){
         huggingface_instance_list.push(new inference(new Date(), req.body.username));
+        console.log("started a chat with " + req.body.username);
         huggingface_instance_list[search(req.body.username)].generate_response(req.body.user_input)
         .then((result) => {
-            res.send({"response" : result});
+            res.send({result});
         });
     }else{
         huggingface_instance_list[search(req.body.username)].generate_response(req.body.user_input)
         .then((result) => {
-            res.send({"response" : result});
+            res.send({result});
         });
     }
 
@@ -57,7 +59,7 @@ app.get('/huggingfacelist', (req, res) => {
     for(var i = 0;i < huggingface_instance_list.length;i++){
         listToReturn.push(huggingface_instance_list[i].username);
     }
-    res.send({"list" : listToReturn});
+    res.send({listToReturn});
 })
 
 app.listen(port, () => {
