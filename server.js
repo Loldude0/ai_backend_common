@@ -1,11 +1,11 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 
+const inference = require('./inference');
 require('dotenv').config();
-
-import { inference } from './inference';
 huggingface_instance_list = [];
 
+app = express();
 app.use(bodyparser.urlencoded({ extended : true}));
 app.use(bodyparser.json());
 app.use(express.static('public'))
@@ -15,7 +15,7 @@ const port = 3000;
 function search(val){
 
     for(var i = 0;i < huggingface_instance_list.length;i++){
-        if(huggingface_instance_list[i].getname == val){
+        if(huggingface_instance_list[i].username == val){
             return i;
         }
     }
@@ -25,8 +25,10 @@ function search(val){
 function clearold(){
 
     for(var i = 0;i < huggingface_instance_list.length;i++){
-        if(huggingface_instance_list[i].date == null || (new Date() - huggingface_instance_list[i].date) > 60000){
-            huggingface_instance_list.flag_for_delete();
+        console.log(new Date() - huggingface_instance_list[i].date);
+        if(huggingface_instance_list[i].getDate() == null || (new Date() - huggingface_instance_list[i].getDate()) > 300000){
+            console.log("deleting" + huggingface_instance_list[i].username);
+            huggingface_instance_list[i].flag_for_delete();
             huggingface_instance_list.splice(i, 1);
         }
     }
@@ -37,9 +39,11 @@ app.get('/huggingface', (req, res) => {
 
     clearold();
     if(search(req.body.username) == -1){
+        console.log(huggingface_instance_list);
         huggingface_instance_list.push(new inference(new Date(), req.body.username));
+        res.send("created");
     }else{
-        await huggingface_instance_list[search(req.body.username)].generate_response(req.body.user_input)
+        huggingface_instance_list[search(req.body.username)].generate_response(req.body.user_input)
         .then((result) => {
             res.send(result);
         });
