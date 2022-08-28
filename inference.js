@@ -15,7 +15,6 @@ module.exports =  class inference {
 
     async request(data){
 
-        console.log("sending request");
         var response = await fetch(
             "https://api-inference.huggingface.co/models/microsoft/DialoGPT-large",
             {
