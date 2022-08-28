@@ -13,14 +13,6 @@ module.exports =  class inference {
         this.username = username;
     }
 
-    async getName(){
-        return this.username
-    }
-
-    async getDate(){
-        return this.date;
-    }
-
     async request(data){
 
         console.log("sending request");

@@ -26,7 +26,7 @@ function clearold(){
 
     for(var i = 0;i < huggingface_instance_list.length;i++){
         console.log(new Date() - huggingface_instance_list[i].date);
-        if(huggingface_instance_list[i].getDate() == null || (new Date() - huggingface_instance_list[i].getDate()) > 300000){
+        if(huggingface_instance_list[i].date == null || (new Date() - huggingface_instance_list[i].date) > 300000){
             console.log("deleting" + huggingface_instance_list[i].username);
             huggingface_instance_list[i].flag_for_delete();
             huggingface_instance_list.splice(i, 1);
