@@ -26,7 +26,7 @@ function clearold(){
 
     for(var i = 0;i < huggingface_instance_list.length;i++){
         if(huggingface_instance_list[i].date == null || (new Date() - huggingface_instance_list[i].date) > 300000){
-            console.log("ended a chat with " + huggingface_instance_list.username);
+            console.log("ended a chat with " + huggingface_instance_list[i].username);
             huggingface_instance_list[i].flag_for_delete();
             huggingface_instance_list.splice(i, 1);
         }
