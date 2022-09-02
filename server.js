@@ -62,6 +62,14 @@ app.get('/huggingfacelist', (req, res) => {
     res.send({listToReturn});
 })
 
+app.get('/huggingfaceremove', (req, res) => {
+    clearold();
+    if(search(req.query.username) != -1){
+        huggingface_instance_list[search(req.query.username)].remove_response(req.query.index);
+    }
+    res.send({"success" : true});
+})
+
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`)
 })
