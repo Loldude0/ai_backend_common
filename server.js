@@ -12,6 +12,8 @@ app.use(express.static('public'))
 
 const port = 3000;
 
+console.log("10:52:00 1/9/2022");
+
 function search(val){
 
     for(var i = 0;i < huggingface_instance_list.length;i++){
