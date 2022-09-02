@@ -64,10 +64,24 @@ app.get('/huggingfacelist', (req, res) => {
 
 app.post('/huggingfaceremove', (req, res) => {
     clearold();
-    if(search(req.query.username) != -1){
+    if(search(req.body.username) != -1){
         huggingface_instance_list[search(req.body.username)].remove_response();
+        res.send({"result" : "success"});
+    } else {
+        res.send({"result" : "null user"});
     }
-    res.send({"success" : true});
+})
+
+app.post('/huggingfacedelete', (req, res) => {
+    clearold();
+    if(search(req.body.username) != -1){
+        var i = search(req.body.username);
+        huggingface_instance_list[i].flag_for_delete();
+        huggingface_instance_list.splice(i, 1);
+        res.send({"result" : "success"});
+    } else {
+        res.send({"result" : "already deleted automatically"});
+    }
 })
 
 app.listen(port, () => {

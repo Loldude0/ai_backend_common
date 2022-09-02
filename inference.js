@@ -41,10 +41,9 @@ module.exports =  class inference {
 
     async remove_response(){
 
-        for(var i = 0;i < this.generated_responses.length-1;i++){
-            this.past_user_inputs.pop();
-            this.generated_responses.pop();
-        }
+        this.generated_responses.length = 1;
+        this.past_user_inputs.length = 1;
+
     }
     
     async flag_for_delete(){
