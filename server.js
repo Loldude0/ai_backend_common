@@ -62,10 +62,10 @@ app.get('/huggingfacelist', (req, res) => {
     res.send({listToReturn});
 })
 
-app.get('/huggingfaceremove', (req, res) => {
+app.post('/huggingfaceremove', (req, res) => {
     clearold();
     if(search(req.query.username) != -1){
-        huggingface_instance_list[search(req.query.username)].remove_response(req.query.index);
+        huggingface_instance_list[search(req.body.username)].remove_response();
     }
     res.send({"success" : true});
 })

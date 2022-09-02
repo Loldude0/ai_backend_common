@@ -39,13 +39,11 @@ module.exports =  class inference {
         }})
     }
 
-    async remove_response(index){
+    async remove_response(){
 
-        for(var i = 0;i < index;i++){
-            if(this.generated_responses.length > 1 && this.past_user_inputs.length > 1){
-                this.past_user_inputs.pop();
-                this.generated_responses.pop();
-            }
+        for(var i = 0;i < this.generated_responses.length-1;i++){
+            this.past_user_inputs.pop();
+            this.generated_responses.pop();
         }
     }
     
